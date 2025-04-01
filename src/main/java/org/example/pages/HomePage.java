@@ -1,4 +1,11 @@
 package org.example.pages;
 
-public class HomePage {
+import org.openqa.selenium.WebDriver;
+
+public class HomePage extends BasePage {
+    WebDriver driver;
+
+    public HomePage(WebDriver driver) {
+        super(driver);
+    }
 }
