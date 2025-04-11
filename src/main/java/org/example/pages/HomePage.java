@@ -3,15 +3,21 @@ package org.example.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomePage extends BasePage {
+    By cartPreview = By.xpath("//button[@data-test='checkout']");
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
+    // ProductsTest
     public boolean isNamePriceVisible(String dataTest) {
         WebElement namePrice = driver.findElement(By.xpath("//div[@data-test='"+dataTest+"']/ancestor::li/h4"));
 
@@ -51,4 +57,34 @@ public class HomePage extends BasePage {
 
         return ingredientsText;
     }
+
+    //AddToCartTest
+    public void addToCart(String dataTest) {
+        WebElement product = driver.findElement(By.xpath("//div[@data-test='" + dataTest + "']"));
+
+        product.click();
+    }
+
+    public void hoverOverCartPreview() {
+        WebElement checkout = driver.findElement(cartPreview);
+
+        Actions action = new Actions(driver);
+        action.moveToElement(checkout).perform();
+    }
+
+    public Map<String, Integer> getProductsFromCartPreview() {
+        List<WebElement> products = driver.findElements(By.className("list-item"));
+        Map<String, Integer> cartPreviewItems = new HashMap<>();
+
+        for (WebElement product : products) {
+            String name = product.findElement(By.cssSelector("div span")).getText();
+            String quantityText = product.findElement(By.className("unit-desc")).getText();
+            int quantity = Integer.parseInt(quantityText.split(" ")[1]);
+
+            cartPreviewItems.put(name, quantity);
+        }
+
+        return cartPreviewItems;
+    }
+
 }
