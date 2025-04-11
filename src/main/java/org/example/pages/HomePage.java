@@ -65,6 +65,13 @@ public class HomePage extends BasePage {
         product.click();
     }
 
+    public void addToCartRightClick(String dataTest) {
+        Actions actions = new Actions(driver);
+        WebElement product = driver.findElement(By.xpath("//div[@data-test='" + dataTest + "']"));
+
+        actions.contextClick(product).perform();
+    }
+
     public void hoverOverCartPreview() {
         WebElement checkout = driver.findElement(cartPreview);
 
@@ -74,17 +81,17 @@ public class HomePage extends BasePage {
 
     public Map<String, Integer> getProductsFromCartPreview() {
         List<WebElement> products = driver.findElements(By.className("list-item"));
-        Map<String, Integer> cartPreviewItems = new HashMap<>();
+        Map<String, Integer> cartPreviewProducts = new HashMap<>();
 
         for (WebElement product : products) {
             String name = product.findElement(By.cssSelector("div span")).getText();
             String quantityText = product.findElement(By.className("unit-desc")).getText();
             int quantity = Integer.parseInt(quantityText.split(" ")[1]);
 
-            cartPreviewItems.put(name, quantity);
+            cartPreviewProducts.put(name, quantity);
         }
 
-        return cartPreviewItems;
+        return cartPreviewProducts;
     }
 
 }

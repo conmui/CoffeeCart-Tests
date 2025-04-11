@@ -15,16 +15,16 @@ public class CartPage extends BasePage {
 
     public Map<String, Integer> getProductsFromCartPage() {
         List<WebElement> products = driver.findElements(By.cssSelector(".list > div > ul > .list-item"));
-        Map<String, Integer> cartPageItems = new HashMap<>();
+        Map<String, Integer> cartPageProducts = new HashMap<>();
 
         for (WebElement product : products) {
             String name = product.findElement(By.cssSelector("div:first-of-type")).getText();
             String quantityText = product.findElement(By.className("unit-desc")).getText();
             int quantity = Integer.parseInt(quantityText.split(" x ")[1]);
 
-            cartPageItems.put(name, quantity);
+            cartPageProducts.put(name, quantity);
         }
 
-        return cartPageItems;
+        return cartPageProducts;
     }
 }

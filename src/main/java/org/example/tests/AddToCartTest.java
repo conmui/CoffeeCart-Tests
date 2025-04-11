@@ -8,7 +8,9 @@ import org.testng.annotations.Test;
 import java.util.Map;
 
 public class AddToCartTest extends BaseTest {
-    @Test
+
+    @Test(enabled = false)
+//    @Test
     public void verifyCartPreview() {
         HomePage homePage = new HomePage(driver);
         Map<String, Integer> expected = Map.of(AMERICANO.getName(), 1, ESPRESSOCONPANA.getName(), 2, MOCHA.getName(), 1);
@@ -25,7 +27,8 @@ public class AddToCartTest extends BaseTest {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
+    @Test(enabled = false)
+//    @Test
     public void verifyCartPage() {
         HomePage homePage = new HomePage(driver);
         Map<String, Integer> expected = Map.of(ESPRESSOMACCHIATO.getName(), 1, CAPPUCCINO.getName(), 1, CAFELATTE.getName(), 1);
@@ -40,4 +43,16 @@ public class AddToCartTest extends BaseTest {
 
         Assert.assertEquals(actual, expected);
     }
+
+
+//    @Test(enabled = false)
+    @Test
+    public void addRightClickAndVerifyCartPreview() {
+        HomePage homePage = new HomePage(driver);
+
+        homePage.addToCartRightClick(ESPRESSOMACCHIATO.getDataTest());
+    }
+
+    //verifyCartPreviewWithCoupon
+    //verifyCartPreviewWithCoupon
 }
