@@ -65,6 +65,25 @@ public class HomePage extends BasePage {
         product.click();
     }
 
+    public void addToCartModal(String dataTest, boolean confirmation) {
+        Actions actions = new Actions(driver);
+        WebElement product = driver.findElement(By.xpath("//div[@data-test='" + dataTest + "']"));
+        WebElement accept = driver.findElement(By.xpath("//dialog/form/button[contains(text(), 'Yes')]"));
+        WebElement reject = driver.findElement(By.xpath("//dialog/form/button[contains(text(), 'No')]"));
+
+        actions.contextClick(product).perform();
+
+        if (confirmation) {
+            accept.click();
+        } else {
+            reject.click();
+        }
+    }
+
+    public void addToCartModalReject() {
+
+    }
+
     public void hoverOverCartPreview() {
         WebElement checkout = driver.findElement(cartPreview);
 
